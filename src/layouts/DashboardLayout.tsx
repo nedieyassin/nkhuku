@@ -14,13 +14,13 @@ export default function DashboardLayout() {
             <div>
                 <div
                     className={cn(
-                        "fixed right-0 top-0 z-50 flex h-16 w-full items-center justify-between border-b bg-background px-6 md:w-[calc(100%-240px)]",
+                        "fixed right-0 top-0 z-50 flex h-12 w-full items-center justify-between border-b bg-background px-2 md:px-3 md:w-[calc(100%-240px)]",
                     )}
                 >
-                    <div className='flex items-center gap-4'>
+                    <div className='flex items-center gap-1'>
                         <Button
                             variant='ghost'
-                            className='-ml-3 md:hidden'
+                            className='md:hidden'
                             size='icon'
                             onClick={() => setOpen(true)}
                         >
