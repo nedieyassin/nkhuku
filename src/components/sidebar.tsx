@@ -19,16 +19,42 @@ export type SidebarNavItem = {
 
 const menu: SidebarNavItem[] = [
     {
-        title: "Home",
+        title: "Dashboard",
         icon: "lucide:layout-dashboard",
         href: "/dashboard",
     },
     {
-        title: "Inventory",
-        icon: "lucide:list-todo",
-        href: "/dashboard/inventory",
-    }
+        title: "Chickens",
+        icon: "fluent-emoji-high-contrast:chicken",
+        href: "/dashboard/chickens",
+    },
+    {
+        title: "Feed Formulation",
+        icon: "lucide:wheat",
+        href: "/dashboard/feed-formulation",
+    },
+    {
+        title: "Health Monitoring",
+        icon: "lucide:heart-pulse",
+        href: "/dashboard/health",
+    },
+    {
+        title: "Egg Production",
+        icon: "lucide:egg",
+        href: "/dashboard/eggs",
+    },
+    {
+        title: "Incubation Management",
+        icon: "lucide:heater",
+        href: "/dashboard/incubation",
+    },
+    {
+        title: "Configurations",
+        icon: "lucide:settings",
+        href: "/dashboard/configuration",
+    },
 ]
+
 
 export default function Sidebar({className, onClick}: SidebarProps) {
     const pathname = useLocation().pathname
@@ -56,7 +82,6 @@ function SidebarItems({
                           onClick,
                       }: {
     onClick?: () => void
-
     items: SidebarNavItem[]
     pathName: string | null
 }) {
@@ -66,7 +91,7 @@ function SidebarItems({
                 key={index}
                 asChild
                 onClick={onClick}
-                variant={item.href === pathName ? "secondary" : "ghost"}
+                variant={pathName?.includes(item.href || '') && item.href !== '/dashboard' ? "secondary" : item.href === pathName ? "secondary" : "ghost"}
                 className={cn("mb-2 w-full justify-start px-3 py-2", {
                     "text-primary": item.href === pathName,
                 })}

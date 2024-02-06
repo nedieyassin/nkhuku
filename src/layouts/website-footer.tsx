@@ -11,13 +11,12 @@ export default function WebsiteFooter() {
                             <Icon icon={'fluent-emoji-high-contrast:chicken'} className={'h-6 w-6 text-white'}/>
                             <h1 className={'text-white text-xl font-bold'}>Nkhuku</h1>
                         </div>
-                        <div className={'flex items-center justify-center gap-4'}>
+                        <div className={'flex items-center justify-center gap-4 py-4'}>
                             <Link to={'/login'} className={'text-sm hover:underline text-gray-200'}>Login</Link>
                             <Link to={'/register'} className={'text-sm hover:underline text-gray-200'}>Register</Link>
                             <Link to={'/'} className={'text-sm hover:underline text-gray-200'}>Terms and
                                 Conditions</Link>
-                            <Link to={'/'} className={'text-sm hover:underline text-gray-200'}>About</Link>
-                            <Link to={'/dashboard'} className={'text-sm hover:underline text-gray-200'}>Dashboard</Link>
+                            <Link to={'/dashboard'} className={'text-sm hover:underline text-gray-200'}>About</Link>
                         </div>
                     </div>
                     <p className={'text-gray-500 text-center text-sm'}>Copyright © {new Date().getFullYear()} Nkhuku.

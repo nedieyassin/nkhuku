@@ -13,31 +13,64 @@ import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {Link} from "react-router-dom";
+import pb from "@/lib/pocketbase.ts";
+import {useState} from "react";
+import {toast} from "sonner"
+import {useNavigate} from "react-router-dom";
+import {Checkbox} from "@/components/ui/checkbox.tsx";
+
 
 const formSchema = z.object({
     fullName: z.string().min(1).trim(),
+    farmName: z.string().optional(),
     username: z.string().email().trim().toLowerCase(),
     password: z.string().min(8).trim(),
-    confirmPassword: z.string().min(8).trim()
+    confirmPassword: z.string().min(8).trim(),
+    agree: z.boolean()
 }).refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
-})
+}).refine((data) => data.agree, {
+    message: "Please agree to the terms and conditions",
+    path: ["agree"]
+});
 
 export default function RegisterPage() {
+    const navigate = useNavigate();
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             fullName: "",
+            farmName: "",
             username: "",
             password: "",
             confirmPassword: "",
+            agree: false,
         },
     })
+    const [isLoading, setIsLoading] = useState(false);
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
+    function onSubmit(form: z.infer<typeof formSchema>) {
+        setIsLoading(true)
+        pb.collection('users').create({
+            email: form.username,
+            emailVisibility: true,
+            password: form.password,
+            passwordConfirm: form.confirmPassword,
+            name: form.fullName,
+            farmName: form.farmName,
+        }).then(() => {
+            setIsLoading(false);
+            navigate({pathname: '/login', search: '?register=true&email=' + form.username});
+        }).catch((res) => {
+            toast.error("Something went wrong", {
+                description: res?.response?.data?.email?.message ?? "Please try again",
+            })
+            setIsLoading(false);
+        });
     }
+
 
     return (
         <div className={'w-full flex-col min-h-screen flex items-center justify-center px-4'}>
@@ -71,6 +104,20 @@ export default function RegisterPage() {
                         {/**/}
                         <FormField
                             control={form.control}
+                            name="farmName"
+                            render={({field}) => (
+                                <FormItem>
+                                    <FormLabel>Farm Name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter your farm name" {...field} />
+                                    </FormControl>
+                                    <FormMessage className={'text-xs'}/>
+                                </FormItem>
+                            )}
+                        />
+                        {/**/}
+                        <FormField
+                            control={form.control}
                             name="username"
                             render={({field}) => (
                                 <FormItem>
@@ -90,7 +137,7 @@ export default function RegisterPage() {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Enter your password" {...field} />
+                                        <Input placeholder="Enter your password" type={'password'} {...field} />
                                     </FormControl>
                                     <FormMessage className={'text-xs'}/>
                                 </FormItem>
@@ -104,17 +151,45 @@ export default function RegisterPage() {
                                 <FormItem>
                                     <FormLabel>Confirm Password</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Confirm your password" {...field} />
+                                        <Input placeholder="Confirm your password" type={'password'} {...field} />
                                     </FormControl>
                                     <FormMessage className={'text-xs'}/>
                                 </FormItem>
                             )}
                         />
                         {/**/}
-                        <Button type="submit" className={'w-full'}>Register</Button>
+                        <FormField
+                            control={form.control}
+                            name="agree"
+                            render={({field}) => (
+                                <>
+                                    <div className={'flex gap-3'}>
+                                        <Checkbox id={'agree'} checked={field.value}
+                                                  onCheckedChange={field.onChange}/>
+                                        <div className="grid gap-1.5 leading-none">
+                                            <label
+                                                htmlFor="agree"
+                                                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                            >
+                                                Accept terms and conditions
+                                            </label>
+                                            <p className="text-sm text-muted-foreground">
+                                                You agree to our <Link className={'text-blue-500 hover:underline'} to={'/'}>Terms of Service and Privacy
+                                                Policy</Link>.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <FormMessage className={'text-xs'}/>
+                                </>
+                            )}
+                        />
+                        {/**/}
+                        <Button type="submit" className={'w-full'} disabled={isLoading}>
+                            {isLoading && <Icon icon={'eos-icons:loading'} className={'h-5 w-5 mr-1'}/>} Register
+                        </Button>
                         <div>
                             <p className={'text-center text-sm'}>Already have an account? <Link
-                                to={'/login'} className={'text-blue-500'}>Login</Link></p>
+                                to={'/login'} className={'text-blue-500 hover:underline'}>Login</Link></p>
                         </div>
                     </form>
                 </Form>

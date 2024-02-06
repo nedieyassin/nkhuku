@@ -1,5 +1,5 @@
 import {Sheet, SheetContent} from "@/components/ui/sheet.tsx";
-import Sidebar from "@/components/Sidebar.tsx";
+import Sidebar from "@/components/sidebar.tsx";
 
 interface Props {
     open: boolean
