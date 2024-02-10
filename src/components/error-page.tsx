@@ -4,6 +4,7 @@ import {buttonVariants} from "@/components/ui/button.tsx";
 
 export default function ErrorPage() {
     const error = useRouteError() as { status: number, statusText: string };
+    console.log({...error})
     return (
         <div className={'min-h-screen w-full flex  flex-col items-center justify-center pb-20'}>
             <Link to={'/'} className={'flex flex-col items-center justify-center gap-1'}>

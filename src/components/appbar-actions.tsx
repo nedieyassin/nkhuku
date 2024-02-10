@@ -7,9 +7,18 @@ import {
 import {Icon} from "@iconify/react";
 import {Button} from "@/components/ui/button.tsx";
 import useStore from "@/state";
+import {useNavigate} from "react-router-dom";
 
 export default function AppbarActions() {
-    const {currentUser} = useStore((state) => state);
+    const {currentUser, setCurrentUser} = useStore((state) => state);
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        setCurrentUser(undefined);
+        localStorage.removeItem('pocketbase_auth');
+        navigate('/login');
+
+    }
+
     return (
         <>
             <DropdownMenu>
@@ -41,7 +50,7 @@ export default function AppbarActions() {
                         <span>Support</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator/>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleLogout}>
                         <Icon icon={'lucide:logout'} className="mr-2 h-4 w-4"/>
                         <span>Log out</span>
                         <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>

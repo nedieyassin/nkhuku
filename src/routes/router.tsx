@@ -20,12 +20,12 @@ import FeedFormulationIngredientsAdd from "@/pages/dashboard/feed-formulation/in
 
 // Egg
 import EggList from "@/pages/dashboard/egg/list.tsx";
+import EggAdd from "@/pages/dashboard/egg/add.tsx";
 
-// Health
-import HealthList from "@/pages/dashboard/health/list.tsx";
 
 // Incubation
 import IncubationList from "@/pages/dashboard/incubation/list.tsx";
+import IncubationAdd from "@/pages/dashboard/incubation/add.tsx";
 
 // Configurations
 import ConfigurationHome from "@/pages/dashboard/configuration/index.tsx";
@@ -35,13 +35,16 @@ import ConfigurationBreedAdd from "@/pages/dashboard/configuration/breed/add.tsx
 //
 import ConfigurationFeedList from "@/pages/dashboard/configuration/feed/list.tsx";
 import ConfigurationFeedAdd from "@/pages/dashboard/configuration/feed/add.tsx";
+//
+import ConfigurationIncubatorList from "@/pages/dashboard/configuration/incubator/list.tsx";
+import ConfigurationIncubatorAdd from "@/pages/dashboard/configuration/incubator/add.tsx";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <HomePage/>,
-        ErrorBoundary: () => <ErrorPage/>
+        ErrorBoundary: () => <ErrorPage/>,
     },
     {
         path: "/login",
@@ -54,6 +57,7 @@ const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <DashboardLayout/>,
+        ErrorBoundary: () => <ErrorPage/>,
         children: [
             {
                 path: "",
@@ -93,12 +97,16 @@ const router = createBrowserRouter([
                 element: <EggList/>
             },
             {
-                path: "health",
-                element: <HealthList/>
+                path: "eggs/:id",
+                element: <EggAdd/>
             },
             {
                 path: "incubation",
                 element: <IncubationList/>
+            },
+            {
+                path: "incubation/:id",
+                element: <IncubationAdd/>
             },
             {
                 path: "configuration",
@@ -119,6 +127,14 @@ const router = createBrowserRouter([
                     {
                         path: "feeds/:id",
                         element: <ConfigurationFeedAdd/>
+                    },
+                    {
+                        path: "incubators",
+                        element: <ConfigurationIncubatorList/>
+                    },
+                    {
+                        path: "incubators/:id",
+                        element: <ConfigurationIncubatorAdd/>
                     },
                 ]
             },

@@ -11,22 +11,19 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {DataTableSortColumn} from "@/components/data-table.tsx";
 import {Icon} from "@iconify/react";
-import {format} from "date-fns";
 import {Link} from "react-router-dom";
 import {Badge} from "@/components/ui/badge.tsx";
 
-export type ChickenBatch = {
+export type EggBatch = {
     id: string
-    breedName: string
     breedId: string
-    dateOfBirth: string
-    numberOfMales: number
-    numberOfFemales: number
-    totalCount: number
-    dateAcquired: number
+    name: string
+    noOfLayers: number
+    noOfEggs: number
+    startDate: string
+    endDate: string
     notes: string
-    status: string
-    averageWeight: number
+    isActive: boolean
     expand: {
         breedId: {
             breedName: string
@@ -35,31 +32,30 @@ export type ChickenBatch = {
 }
 
 
-export const columns: ColumnDef<ChickenBatch>[] = [
+export const columns: ColumnDef<EggBatch>[] = [
+    {
+        accessorKey: "name",
+        enableColumnFilter: true,
+        header: ({column}) => <DataTableSortColumn title={'Batch Name'} column={column}/>,
+        cell: ({row}) => <Link className={'text-blue-600 hover:underline'}
+                               to={`/dashboard/eggs/${row.original.id}`}>{row.original.name}</Link>
+    },
     {
         accessorKey: "breedName",
-        enableColumnFilter: true,
-        header: ({column}) => <DataTableSortColumn title={'Breed'} column={column}/>,
-        cell: ({row}) => <Link className={'text-blue-600 hover:underline'}
-                               to={`/dashboard/chickens/${row.original.id}`}>{row.original.breedName}</Link>
+        header: ({column}) => <DataTableSortColumn title={'Breed'} column={column}/>
     },
     {
-        accessorKey: "totalCount",
-        header: ({column}) => <DataTableSortColumn title={'No of chickens'} column={column}/>
+        accessorKey: "noOfEggs",
+        header: ({column}) => <DataTableSortColumn title={'No. of Eggs'} column={column}/>
     },
     {
-        accessorKey: "dateOfBirth",
-        header: ({column}) => <DataTableSortColumn title={'Date of Birth'} column={column}/>,
-        cell: ({row}) => format(new Date(row.original.dateOfBirth), 'dd MMM, yyyy')
+        accessorKey: "noOfLayers",
+        header: ({column}) => <DataTableSortColumn title={'No. of Layers'} column={column}/>
     },
     {
-        accessorKey: "dateAcquired",
-        header: ({column}) => <DataTableSortColumn title={'Date Acquired'} column={column}/>,
-        cell: ({row}) => format(new Date(row.original.dateOfBirth), 'dd MMM, yyyy')
-    },
-    {
-        accessorKey: "status",
+        accessorKey: "isActive",
         header: ({column}) => <DataTableSortColumn title={'Status'} column={column}/>,
+        cell: ({row}) => row.original.isActive ? 'Active' : 'Inactive'
     },
     {
         id: "actions",
@@ -67,7 +63,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
             return (
                 <div className={'inline-flex items-center flex-wrap gap-3'}>
                     <Badge>
-                        <Link to={`/dashboard/chickens/${row.original.id}`}
+                        <Link to={`/dashboard/eggs/${row.original.id}`}
                               className={'px-1.5 py-0.5'}>
                             Manage
                         </Link>
@@ -81,7 +77,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <Link to={`/dashboard/chickens/${row.original.id}`}>
+                            <Link to={`/dashboard/eggs/${row.original.id}`}>
                                 <DropdownMenuItem>
                                     <Icon icon={'eva:edit-fill'} className="mr-2 h-5 w-5"/>
                                     <span>Edit</span>

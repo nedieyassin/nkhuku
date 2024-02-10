@@ -11,55 +11,49 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {DataTableSortColumn} from "@/components/data-table.tsx";
 import {Icon} from "@iconify/react";
-import {format} from "date-fns";
 import {Link} from "react-router-dom";
 import {Badge} from "@/components/ui/badge.tsx";
+import {format} from "date-fns";
 
-export type ChickenBatch = {
+export type EggIncubation = {
     id: string
-    breedName: string
-    breedId: string
-    dateOfBirth: string
-    numberOfMales: number
-    numberOfFemales: number
-    totalCount: number
-    dateAcquired: number
+    incubatorId: string
+    noOfEggs: number
+    startDate: string
+    endDate: string
+    hatchingDate: string
+    hatchingCount: number
+    failedCount: number
     notes: string
-    status: string
-    averageWeight: number
     expand: {
-        breedId: {
-            breedName: string
+        incubatorId: {
+            name: string
         }
     }
 }
 
 
-export const columns: ColumnDef<ChickenBatch>[] = [
+export const columns: ColumnDef<EggIncubation>[] = [
     {
-        accessorKey: "breedName",
+        accessorKey: "incubator",
         enableColumnFilter: true,
-        header: ({column}) => <DataTableSortColumn title={'Breed'} column={column}/>,
+        header: ({column}) => <DataTableSortColumn title={'Incubator'} column={column}/>,
         cell: ({row}) => <Link className={'text-blue-600 hover:underline'}
-                               to={`/dashboard/chickens/${row.original.id}`}>{row.original.breedName}</Link>
+                               to={`/dashboard/incubation/${row.original.id}`}>{row.original.expand?.incubatorId?.name}</Link>
     },
     {
-        accessorKey: "totalCount",
-        header: ({column}) => <DataTableSortColumn title={'No of chickens'} column={column}/>
+        accessorKey: "noOfEggs",
+        header: ({column}) => <DataTableSortColumn title={'No. of Eggs'} column={column}/>
     },
     {
-        accessorKey: "dateOfBirth",
-        header: ({column}) => <DataTableSortColumn title={'Date of Birth'} column={column}/>,
-        cell: ({row}) => format(new Date(row.original.dateOfBirth), 'dd MMM, yyyy')
+        accessorKey: "startDate",
+        header: ({column}) => <DataTableSortColumn title={'Incubation Start Date'} column={column}/>,
+        cell: ({row}) => format(new Date(row.original.startDate), 'dd MMM, yyyy')
     },
     {
-        accessorKey: "dateAcquired",
-        header: ({column}) => <DataTableSortColumn title={'Date Acquired'} column={column}/>,
-        cell: ({row}) => format(new Date(row.original.dateOfBirth), 'dd MMM, yyyy')
-    },
-    {
-        accessorKey: "status",
-        header: ({column}) => <DataTableSortColumn title={'Status'} column={column}/>,
+        accessorKey: "endDate",
+        header: ({column}) => <DataTableSortColumn title={'Expected Incubation End Date'} column={column}/>,
+        cell: ({row}) => format(new Date(row.original.endDate), 'dd MMM, yyyy')
     },
     {
         id: "actions",
@@ -67,7 +61,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
             return (
                 <div className={'inline-flex items-center flex-wrap gap-3'}>
                     <Badge>
-                        <Link to={`/dashboard/chickens/${row.original.id}`}
+                        <Link to={`/dashboard/incubation/${row.original.id}`}
                               className={'px-1.5 py-0.5'}>
                             Manage
                         </Link>
@@ -81,7 +75,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                            <Link to={`/dashboard/chickens/${row.original.id}`}>
+                            <Link to={`/dashboard/incubation/${row.original.id}`}>
                                 <DropdownMenuItem>
                                     <Icon icon={'eva:edit-fill'} className="mr-2 h-5 w-5"/>
                                     <span>Edit</span>

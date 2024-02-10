@@ -40,9 +40,6 @@ export const feedTypes = [
         name: 'Minerals'
     },
     {
-        name: 'Minerals'
-    },
-    {
         name: 'Additives'
     },
     {

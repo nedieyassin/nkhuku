@@ -1,46 +1,47 @@
 import {buttonVariants} from "@/components/ui/button.tsx";
 import {DataTable, FilterableColumns} from "@/components/data-table.tsx";
-import {EggIncubation, columns} from "@/pages/dashboard/incubation/columns.tsx";
+import {Incubator, columns} from "@/pages/dashboard/configuration/incubator/columns.tsx";
 import {Link} from "react-router-dom";
 import pb from "@/lib/pocketbase.ts";
 import {useQuery} from "@tanstack/react-query";
 
-export default function EggIncubationList() {
+export default function IncubatorList() {
 
     const {isPending, data, isFetching, refetch} = useQuery({
-        queryKey: ['eggIncubations'],
+        queryKey: ['incubators'],
         queryFn: () =>
-            pb.collection('eggIncubations').getFullList<EggIncubation>({
+            pb.collection('incubators').getFullList<Incubator>({
                 sort: '-created',
-                expand: 'incubatorId',
             }).then(r => r)
     })
 
 
     const filterColumns: FilterableColumns[] = [
         {
-            label: "Incubator",
-            value: "incubator",
+            label: "Name",
+            value: "name",
+        },
+        {
+            label: "Mobile Number",
+            value: "mobileNumber",
         }
     ];
 
     return <>
         <div>
             <div className={'flex items-center justify-between'}>
-                <h1 className={'font-bold text-xl md:text-3xl'}>Egg Incubations</h1>
+                <h1 className={'font-bold text-xl md:text-3xl'}>Incubators</h1>
                 <div>
-                    <Link className={buttonVariants({size: 'sm', variant: 'default'})} to={'/dashboard/incubation/+'}>
-                        <span>Add Incubation</span>
+                    <Link className={buttonVariants({size: 'sm', variant: 'default'})}
+                          to={'/dashboard/configuration/incubators/+'}>
+                        <span>Add Incubator</span>
                     </Link>
                 </div>
             </div>
             <div className={'py-4'}>
                 <DataTable
                     columns={columns}
-                    data={data?.map((r) => ({
-                        ...r,
-                        incubator: r.expand?.incubatorId?.name,
-                    })) || []}
+                    data={data || []}
                     filter={true}
                     isLoading={isPending || isFetching}
                     refetch={refetch}

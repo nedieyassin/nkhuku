@@ -28,25 +28,21 @@ const menu: SidebarNavItem[] = [
         icon: "fluent-emoji-high-contrast:chicken",
         href: "/dashboard/chickens",
     },
-    {
-        title: "Feed Formulation",
-        icon: "lucide:wheat",
-        href: "/dashboard/feed-formulation",
-    },
-    {
-        title: "Health Monitoring",
-        icon: "lucide:heart-pulse",
-        href: "/dashboard/health",
-    },
+
     {
         title: "Egg Production",
         icon: "lucide:egg",
         href: "/dashboard/eggs",
     },
     {
-        title: "Incubation Management",
+        title: "Egg Incubation",
         icon: "lucide:heater",
         href: "/dashboard/incubation",
+    },
+    {
+        title: "Feed Formulation",
+        icon: "lucide:wheat",
+        href: "/dashboard/feed-formulation",
     },
     {
         title: "Configurations",

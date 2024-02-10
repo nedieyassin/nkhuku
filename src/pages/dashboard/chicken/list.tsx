@@ -43,8 +43,7 @@ export default function ChickenList() {
                     columns={columns}
                     data={data?.map((r) => ({
                         ...r,
-                        breedName: r.expand?.breedId?.breedName,
-                        totalCount: r.numberOfMales + r.numberOfFemales
+                        breedName: r.expand?.breedId?.breedName
                     })) || []}
                     filter={true}
                     isLoading={isPending || isFetching}

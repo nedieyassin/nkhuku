@@ -11,26 +11,33 @@ import {isPrimaryKey, upsert} from "@/lib/utils.ts";
 import pb from "@/lib/pocketbase.ts";
 import useStore from "@/state";
 import {Textarea} from "@/components/ui/textarea.tsx";
-import {Breed} from "@/pages/dashboard/configuration/breed/columns.tsx";
+import {Incubator} from "@/pages/dashboard/configuration/incubator/columns.tsx";
+import {Checkbox} from "@/components/ui/checkbox.tsx";
 
 const formSchema = z.object({
-    breedName: z.string().min(3),
+    name: z.string().min(3),
+    isExternal: z.boolean(),
+    mobileNumber: z.string().optional(),
     description: z.string().optional(),
+}).refine(data => {
+    return !(data.isExternal && !data.mobileNumber);
+}, {
+    message: "Mobile number is required when incubator is external",
+    path: ['mobileNumber'],
 })
 
-export default function BreedAdd() {
+export default function IncubatorAdd() {
     const navigate = useNavigate();
     const params = useParams();
     const [isLoading, setIsLoading] = useState(false);
     const {currentUser} = useStore((state) => state);
 
 
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            breedName: "",
-            description: "",
+            name: "",
+            isExternal: false,
         },
     })
 
@@ -38,8 +45,10 @@ export default function BreedAdd() {
     useEffect(() => {
         if (params.id && isPrimaryKey(params.id)) {
             setIsLoading(true);
-            pb.collection('breeds').getOne<Breed>(params.id).then((record) => {
-                form.setValue('breedName', record.breedName);
+            pb.collection('incubators').getOne<Incubator>(params.id).then((record) => {
+                form.setValue('name', record.name);
+                form.setValue('isExternal', record.isExternal);
+                form.setValue('mobileNumber', record.mobileNumber);
                 form.setValue('description', record.description);
                 setIsLoading(false);
             });
@@ -50,7 +59,7 @@ export default function BreedAdd() {
     function onSubmit(form: z.infer<typeof formSchema>) {
         setIsLoading(true);
         if (params.id) {
-            upsert('breeds', params.id, {
+            upsert('incubators', params.id, {
                 ...form,
                 userId: currentUser?.id,
             }).then(() => {
@@ -70,7 +79,7 @@ export default function BreedAdd() {
                     <Button onClick={() => navigate(-1)} size={'icon'} variant={'outline'}>
                         <Icon icon={'lucide:arrow-left'} className={'h-5 w-5'}/>
                     </Button>
-                    <h1 className={'font-bold text-xl md:text-3xl'}>Breed</h1>
+                    <h1 className={'font-bold text-xl md:text-3xl'}>Incubator</h1>
                 </div>
                 <div>
                     <div className={'py-4 max-w-screen-sm'}>
@@ -79,10 +88,10 @@ export default function BreedAdd() {
                                 {/**/}
                                 <FormField
                                     control={form.control}
-                                    name="breedName"
+                                    name="name"
                                     render={({field}) => (
                                         <FormItem>
-                                            <FormLabel>Breed name</FormLabel>
+                                            <FormLabel>Name</FormLabel>
                                             <FormControl>
                                                 <Input {...field} />
                                             </FormControl>
@@ -90,6 +99,43 @@ export default function BreedAdd() {
                                         </FormItem>
                                     )}
                                 />
+                                {/**/}
+                                <FormField
+                                    control={form.control}
+                                    name="isExternal"
+                                    render={({field}) => (
+                                        <>
+                                            <div className={'flex gap-3'}>
+                                                <Checkbox id={'isExternal'} checked={field.value}
+                                                          onCheckedChange={field.onChange}/>
+                                                <div className="grid gap-1.5 leading-none">
+                                                    <label
+                                                        htmlFor="isExternal"
+                                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                    >
+                                                        This is an external incubator (not part of the farm)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <FormMessage className={'text-xs'}/>
+                                        </>
+                                    )}
+                                />
+                                {/**/}
+                                {form.watch('isExternal') && <FormField
+                                    control={form.control}
+                                    name="mobileNumber"
+                                    render={({field}) => (
+                                        <FormItem>
+                                            <FormLabel>Incubator Contact Mobile Number</FormLabel>
+                                            <FormControl>
+                                                <Input type={'tel'} {...field} />
+                                            </FormControl>
+                                            <FormMessage className={'text-xs'}/>
+                                        </FormItem>
+                                    )}
+                                />}
+
                                 {/**/}
                                 <FormField
                                     control={form.control}
@@ -109,7 +155,7 @@ export default function BreedAdd() {
                                 {/**/}
                                 <Button type="submit" className={'w-full'} disabled={isLoading}>
                                     {isLoading && <Icon icon={'eos-icons:loading'} className={'h-5 w-5 mr-1'}/>} Save
-                                    Breed
+                                    Incubator
                                 </Button>
                             </form>
                         </Form>

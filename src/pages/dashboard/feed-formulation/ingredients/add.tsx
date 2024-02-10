@@ -38,6 +38,18 @@ export default function FeedFormulaIngredientsAdd() {
     const [isLoading, setIsLoading] = useState(false);
     const {currentUser} = useStore((state) => state);
 
+    const {data: formulaFeeds} = useQuery({
+        queryKey: ['formulaIngredients', params.formulaId],
+        queryFn: () =>
+            pb.collection('formulaIngredients').getFullList<{ feedId: string }>({
+                fields: 'feedId',
+                sort: '-created',
+                filter: `formulaId="${params.formulaId}"`,
+            }).then(r => r)
+    })
+
+    // console.log('formulaIngredients', formulaFeeds)
+
     const {data: feedOptions} = useQuery({
         queryKey: ['feeds'],
         queryFn: () =>
@@ -114,7 +126,7 @@ export default function FeedFormulaIngredientsAdd() {
                                                         </SelectTrigger>
                                                     </FormControl>
                                                     <SelectContent>
-                                                        {feedOptions?.map((feed) => (
+                                                        {feedOptions?.filter((feed) => isPrimaryKey(params.id || '+') ? true : !formulaFeeds?.find((formulaFeed) => formulaFeed.feedId === feed.id))?.map((feed) => (
                                                             <SelectItem key={feed.id} value={feed.id}>
                                                                 {feed.feedName}
                                                             </SelectItem>

@@ -51,8 +51,9 @@ export default function LoginPage() {
             setIsLoading(false);
         }).catch((err) => {
             setIsLoading(false);
+            console.log({...err})
             toast.error("Something went wrong", {
-                description: err?.response?.data?.message ?? "Please try again",
+                description: err?.response?.message ?? "Please try again",
             })
         });
     }
