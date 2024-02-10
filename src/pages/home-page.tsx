@@ -13,7 +13,7 @@ export default function HomePage() {
         <div
             className="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div
-            className={'w-full  flex items-center fixed md:absolute top-0 left-0 right-0 h-16 z-50'}>
+            className={'w-full  flex items-center fixed bg-white md:bg-transparent md:absolute top-0 left-0 right-0 h-16 z-50'}>
             <div className={'container flex items-center justify-between px-4 mx-auto'}>
                 <div className={'flex gap-3 items-center'}>
                     <Icon icon={'fluent-emoji-high-contrast:chicken'} className={'h-10 w-10'}/>
@@ -21,18 +21,18 @@ export default function HomePage() {
                 </div>
                 <div className={'flex gap-4 items-center'}>
                     <Link to={'/login'}
-                          className={'px-6 py-2 bg-white/30 hover:bg-white/80 transition-all font-semibold uppercase text-sm rounded-full backdrop-blur-3xl'}>Login</Link>
+                          className={buttonVariants({variant: "link"})}>Login</Link>
                     <Link to={'/register'}
-                          className={'px-6 py-2 bg-white/30 hover:bg-white/80 transition-all font-semibold uppercase text-sm rounded-full backdrop-blur-3xl'}>Register</Link>
+                          className={buttonVariants({variant: "link"})}>Register</Link>
                 </div>
             </div>
         </div>
         <div>
-            <section className={'container mx-auto py-20'}>
+            <section className={'container mx-auto md:py-20'}>
                 <div className={'grid md:grid-cols-2 gap-16'}>
-                    <div className={'space-y-2 md:pt-32 pt-32'}>
-                        <h1 className={'text-8xl font-bold'}>Welcome to <span
-                            className={'bg-gradient-to-br from-blue-400 to-blue-500 bg-clip-text text-transparent'}>Nkhuku</span>
+                    <div className={'space-y-4 md:pt-32 pt-32'}>
+                        <h1 className={'text-4xl md:text-7xl font-bold'}>Welcome to <span
+                            className={'bg-gradient-to-br from-blue-400 to-blue-500 bg-clip-text text-transparent text-6xl md:text-7xl'}>Nkhuku</span>
                         </h1>
                         <h2 className={'text-gray-500 italic relative'}>
                             <span className={'font-bold text-3xl text-gray-300 absolute -left-4 -top-2'}>"</span>

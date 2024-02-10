@@ -58,7 +58,7 @@ export default function Sidebar({className, onClick}: SidebarProps) {
         <div className={cn("flex h-full w-[240px] flex-col", className)}>
             <div className='flex items-center justify-center- gap-3 h-12 w-full border-b  px-4 bg-white select-none'>
                 <Icon icon={'fluent-emoji-high-contrast:chicken'} className={'h-6 w-6'}/>
-                <h1 className={'text-xl font-bold'}>NKHUKU</h1>
+                <Link to={'/'} className={'text-xl font-bold'}>NKHUKU</Link>
             </div>
             <div className='py-2 px-2'>
                 <SidebarItems
