@@ -28,10 +28,10 @@ export default function HomePage() {
             </div>
         </div>
         <div>
-            <section className={'w-full '}>
+            <section className={'container mx-auto py-20'}>
                 <div className={'grid md:grid-cols-2 gap-16'}>
-                    <div className={'space-y-2 md:pt-32 pt-32 px-6 md:px-14'}>
-                        <h1 className={'text-6xl font-bold'}>Welcome to <span
+                    <div className={'space-y-2 md:pt-32 pt-32'}>
+                        <h1 className={'text-8xl font-bold'}>Welcome to <span
                             className={'bg-gradient-to-br from-blue-400 to-blue-500 bg-clip-text text-transparent'}>Nkhuku</span>
                         </h1>
                         <h2 className={'text-gray-500 italic relative'}>
@@ -55,7 +55,7 @@ export default function HomePage() {
                                 account</Link>
                         </div>
                     </div>
-                    <div className={'bg-center bg-cover h-0 md:h-[80vh]'}
+                    <div className={'bg-center bg-cover h-0 md:h-[60vh]'}
                          style={{backgroundImage: 'url("https://images.unsplash.com/photo-1556577734-1f61a9c141e6?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")'}}>
 
                     </div>
@@ -71,7 +71,7 @@ export default function HomePage() {
                     <div className={'grid grid-cols-1 md:grid-cols-3 gap-6 mt-8'}>
                         {/**/}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>Inventory Tracking</h1>
+                            <h1 className={'text-2xl font-semibold'}>Inventory Tracking</h1>
                             <p>
                                 Keep track of your farm's inventory and monitor your
                                 production.
@@ -79,7 +79,7 @@ export default function HomePage() {
                         </div>
                         {/*    */}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>Health Monitoring</h1>
+                            <h1 className={'text-2xl font-semibold'}>Health Monitoring</h1>
                             <p>
                                 Monitor your farm's health and ensure that your
                                 chickens and eggs are healthy.
@@ -87,7 +87,7 @@ export default function HomePage() {
                         </div>
                         {/*    */}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>Egg Production Monitoring</h1>
+                            <h1 className={'text-2xl font-semibold'}>Egg Production Monitoring</h1>
                             <p>
                                 Record and analyse egg production data for better farm productivity. <br/>
                                 Visualize egg production trends and generate detailed reports.
@@ -95,7 +95,7 @@ export default function HomePage() {
                         </div>
                         {/*    */}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>Incubation Management</h1>
+                            <h1 className={'text-2xl font-semibold'}>Incubation Management</h1>
                             <p>
                                 Manage the incubation process with details on turning schedules and temperature
                                 settings. <br/>
@@ -104,14 +104,14 @@ export default function HomePage() {
                         </div>
                         {/*    */}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>Analytics and Reporting</h1>
+                            <h1 className={'text-2xl font-semibold'}>Analytics and Reporting</h1>
                             <p>
                                 Generate detailed reports for in-depth analysis and decision-making.
                             </p>
                         </div>
                         {/*    */}
                         <div className={'space-y-2 p-4'}>
-                            <h1 className={'text-xl font-semibold'}>User-Friendly Interface</h1>
+                            <h1 className={'text-2xl font-semibold'}>User-Friendly Interface</h1>
                             <p>
                                 Streamline your farm operations with a user-friendly interface.
                             </p>
