@@ -61,7 +61,7 @@ export const columns: ColumnDef<EggBatch>[] = [
         id: "actions",
         cell: ({row}) => {
             return (
-                <div className={'inline-flex items-center flex-wrap gap-3'}>
+                <div className={'inline-flex items-center flex-nowrap gap-3'}>
                     <Badge>
                         <Link to={`/dashboard/eggs/${row.original.id}`}
                               className={'px-1.5 py-0.5'}>

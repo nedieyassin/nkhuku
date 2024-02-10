@@ -153,7 +153,7 @@ export function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell align={cell.id.includes('actions') ? 'right' : 'left'} key={cell.id}>
+                                        <TableCell align={cell.id.includes('actions') ? 'right' : 'left'} key={cell.id} className={'whitespace-nowrap'}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -193,7 +193,7 @@ export function DataTable<TData, TValue>({
 
 export function DataTableSortColumn<T>({title, column}: { title: string, column: Column<T, unknown> }) {
     return <button
-        className={'flex items-center'}
+        className={'flex items-center whitespace-nowrap'}
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
     >
         {title}

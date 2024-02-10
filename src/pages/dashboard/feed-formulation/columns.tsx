@@ -34,7 +34,7 @@ export const columns: ColumnDef<FeedFormulation>[] = [
         id: "actions",
         cell: ({row}) => {
             return (
-                <div className={'inline-flex items-center flex-wrap gap-3'}>
+                <div className={'inline-flex items-center flex-nowrap gap-3'}>
 
                     <Badge >
                         <Link to={`/dashboard/feed-formulation/${row.original.id}/ingredients`} className={'px-1.5 py-0.5'}>
