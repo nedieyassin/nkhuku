@@ -12,6 +12,21 @@ import DashboardPage from "@/pages/dashboard/dashboard-page.tsx";
 import ChickenList from "@/pages/dashboard/chicken/list.tsx";
 import ChickenAdd from "@/pages/dashboard/chicken/add.tsx";
 
+import ChickenManage from "@/pages/dashboard/chicken/manage/index.tsx";
+//
+import ChickenManageFeedingList from "@/pages/dashboard/chicken/manage/feeding/list.tsx";
+import ChickenManageFeedingAdd from "@/pages/dashboard/chicken/manage/feeding/add.tsx";
+//
+import ChickenManageHealthList from "@/pages/dashboard/chicken/manage/health/list.tsx";
+import ChickenManageHealthAdd from "@/pages/dashboard/chicken/manage/health/add.tsx";
+
+//
+import ChickenManageMovementList from "@/pages/dashboard/chicken/manage/movement/list.tsx";
+import ChickenManageMovementAdd from "@/pages/dashboard/chicken/manage/movement/add.tsx";
+//
+import ChickenManageMedicationList from "@/pages/dashboard/chicken/manage/medication/list.tsx";
+import ChickenManageMedicationAdd from "@/pages/dashboard/chicken/manage/medication/add.tsx";
+
 // FeedFormulation
 import FeedFormulationList from "@/pages/dashboard/feed-formulation/list.tsx";
 import FeedFormulationAdd from "@/pages/dashboard/feed-formulation/add.tsx";
@@ -70,6 +85,44 @@ const router = createBrowserRouter([
             {
                 path: "chickens/:id",
                 element: <ChickenAdd/>
+            },
+            {
+                path: "chickens/:chickenId/manage",
+                element: <ChickenManage/>,
+                children: [
+                    {
+                        path: "feeding",
+                        element: <ChickenManageFeedingList/>
+                    },
+                    {
+                        path: "feeding/:id",
+                        element: <ChickenManageFeedingAdd/>
+                    },
+                    {
+                        path: "health",
+                        element: <ChickenManageHealthList/>
+                    },
+                    {
+                        path: "health/:id",
+                        element: <ChickenManageHealthAdd/>
+                    },
+                    {
+                        path: "movement",
+                        element: <ChickenManageMovementList/>
+                    },
+                    {
+                        path: "movement/:id",
+                        element: <ChickenManageMovementAdd/>
+                    },
+                    {
+                        path: "medication",
+                        element: <ChickenManageMedicationList/>
+                    },
+                    {
+                        path: "medication/:id",
+                        element: <ChickenManageMedicationAdd/>
+                    },
+                ]
             },
             {
                 path: "feed-formulation",

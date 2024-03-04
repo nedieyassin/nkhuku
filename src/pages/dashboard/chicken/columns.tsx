@@ -41,7 +41,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
         enableColumnFilter: true,
         header: ({column}) => <DataTableSortColumn title={'Breed'} column={column}/>,
         cell: ({row}) => <Link className={'text-blue-600 hover:underline'}
-                               to={`/dashboard/chickens/${row.original.id}`}>{row.original.breedName}</Link>
+                               to={`/dashboard/chickens/${row.original.id}/manage`}>{row.original.breedName}</Link>
     },
     {
         accessorKey: "totalCount",
@@ -67,7 +67,7 @@ export const columns: ColumnDef<ChickenBatch>[] = [
             return (
                 <div className={'inline-flex items-center flex-nowrap gap-3'}>
                     <Badge>
-                        <Link to={`/dashboard/chickens/${row.original.id}`}
+                        <Link to={`/dashboard/chickens/${row.original.id}/manage`}
                               className={'px-1.5 py-0.5'}>
                             Manage
                         </Link>

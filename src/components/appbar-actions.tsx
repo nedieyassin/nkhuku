@@ -37,11 +37,11 @@ export default function AppbarActions() {
                             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem>
-                            <Icon icon={'lucide:settings'} className="mr-2 h-4 w-4"/>
-                            <span>Settings</span>
-                            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                        </DropdownMenuItem>
+                        {/*<DropdownMenuItem>*/}
+                        {/*    <Icon icon={'lucide:settings'} className="mr-2 h-4 w-4"/>*/}
+                        {/*    <span>Settings</span>*/}
+                        {/*    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>*/}
+                        {/*</DropdownMenuItem>*/}
 
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator/>

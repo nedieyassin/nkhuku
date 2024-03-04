@@ -47,6 +47,15 @@ export default function EggAdd() {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            breedId: '',
+            name: '',
+            noOfLayers: 0,
+            startDate: new Date(),
+            endDate: new Date(),
+            notes: '',
+            isActive: true,
+        }
     })
 
 
